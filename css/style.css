@@ -21,6 +21,9 @@
 .comment-container:last-of-type {
     border-bottom: none;
 }
+#submit-btn {
+    /*margin-top: -35px;*/
+}
 /**/
 .custom-file-input::-webkit-file-upload-button {
     visibility: hidden;

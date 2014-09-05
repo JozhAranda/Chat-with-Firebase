@@ -2,7 +2,9 @@ var fireBaseRef = new Firebase("https://chatfirebaseprb.firebaseio.com/");
 
 $("#submit-btn").bind("click", function() {
 
-    var comment = $("#comments");
+    var comment  = $("#comments");
+    
+    var usr_name = ($.cookie('name') === undefined) ? 'undefined' : $.cookie('name');
     
     var commentValue = $.trim(comment.val());
     
@@ -12,11 +14,11 @@ $("#submit-btn").bind("click", function() {
 
     } else {
 
-        fireBaseRef.push({comment: commentValue}, function(error) {
+        fireBaseRef.push({comment: commentValue, name: usr_name}, function(error) {
                     
             if (error !== null) {
 
-                alert('No habilitado para comentarios a Firebase!');
+                alert('No habilitado para comentarios!');
             }
         });
 
@@ -28,7 +30,7 @@ $("#submit-btn").bind("click", function() {
 
 fireBaseRef.on('child_added', function(snapshot) {
     
-    var uniqName = snapshot.name();
+    var uniqName = ($.cookie('name') === undefined) ? snapshot.name() : snapshot.val().name;
     var comment  = snapshot.val().comment;
     var commentsContainer = $('#comments-container');
         
